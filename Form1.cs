@@ -15,11 +15,14 @@ namespace DnaSynthMonitor
     public partial class Form1 : Form
     {
         // reference https://blog.csdn.net/huang_we_i/article/details/83744275
-        private SerialPort eventPort = new SerialPort("COM3");  //define the serial port number of DNA Synthesizer
-        private SerialPort dataPort = new SerialPort("COM5");   //define the serial port number of absorptiometer
+        //public SerialPort eventPort = new SerialPort("COM1");  //define the serial port number of DNA Synthesizer
+        //private SerialPort dataPort = new SerialPort("COM1");   //define the serial port number of absorptiometer
+
+        AbmData data_in;
         public Form1()
         {
             InitializeComponent();
+            //init_run();
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -29,31 +32,180 @@ namespace DnaSynthMonitor
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            data_in = new AbmData(this.synth_port.Text);
+            if (data_in.start_com())
+            {
+                curr_stat.Text = synth_port.Text + "串口成功打开";
+            }
+            else
+            {
+                curr_stat.Text = synth_port.Text + "串口打开失败！";
+            }
+            /*
+            eventPort = new SerialPort(synth_port.Text);
             if (!(eventPort.IsOpen)) 
             {
                 eventPort.BaudRate = 115200;
                 eventPort.Parity = Parity.None;
                 eventPort.StopBits = StopBits.One;
                 eventPort.DataBits = 8;
-                eventPort.Open();
+                try
+                {
+                    eventPort.Open();
+                }
+                catch (Exception ex) 
+                {
+                    //textBox1.Text = ex.Message;
+                    curr_stat.Text = synth_port.Text + "无法打开";
+                }
+                
                 if (eventPort.IsOpen)
                 {
-                    textBox1.Text = "COM3串口成功打开";
+                    curr_stat.Text = synth_port.Text + "串口成功打开";
                 }
                 else
                 {
-                    textBox1.Text = "COM3打开失败！";
+                    curr_stat.Text = synth_port.Text + "串口打开失败！";
                 }
-            }
+            }*/
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            if (eventPort.IsOpen)
+            int i;
+            Byte[] dataBuf = new Byte[128];
+            int synBufLen = this.BytesToRead;
+            if (synBufLen > 0)
             {
-                eventPort.Write("Hello Dr. Wen ~ \n");
+                for (i = 0; i < synBufLen; i++)
+                {
+                    dataBuf[i] = (Byte)this.eventPort.ReadByte();
+                }
+                this.textBox1.Text = ""; 
+                this.textBox1.AppendText(BitConverter.ToString(dataBuf));
+
             }
 
+
+        }
+
+        private void synth_com1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (synth_com1.Checked)
+            {
+                synth_port.Text = "COM1";
+                synth_com2.CheckState = CheckState.Unchecked;
+                synth_com3.CheckState = CheckState.Unchecked;
+                synth_com4.CheckState = CheckState.Unchecked;
+                synth_com5.CheckState = CheckState.Unchecked;
+            }
+        }
+
+        private void synth_com2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (synth_com2.Checked)
+            {
+                synth_port.Text = "COM2";
+                synth_com1.CheckState = CheckState.Unchecked;
+                synth_com3.CheckState = CheckState.Unchecked;
+                synth_com4.CheckState = CheckState.Unchecked;
+                synth_com5.CheckState = CheckState.Unchecked;
+            }
+        }
+
+        private void synth_com3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (synth_com3.Checked)
+            {
+                synth_port.Text = "COM3";
+                synth_com1.CheckState = CheckState.Unchecked;
+                synth_com2.CheckState = CheckState.Unchecked;
+                synth_com4.CheckState = CheckState.Unchecked;
+                synth_com5.CheckState = CheckState.Unchecked;
+            }
+        }
+        private void synth_com4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (synth_com4.Checked)
+            {
+                synth_port.Text = "COM4";
+                synth_com1.CheckState = CheckState.Unchecked;
+                synth_com2.CheckState = CheckState.Unchecked;
+                synth_com3.CheckState = CheckState.Unchecked;
+                synth_com5.CheckState = CheckState.Unchecked;
+            }
+        }
+
+        private void synth_com5_CheckedChanged(object sender, EventArgs e)
+        {
+            if (synth_com5.Checked)
+            {
+                synth_port.Text = "COM5";
+                synth_com1.CheckState = CheckState.Unchecked;
+                synth_com2.CheckState = CheckState.Unchecked;
+                synth_com3.CheckState = CheckState.Unchecked;
+                synth_com4.CheckState = CheckState.Unchecked;
+            }
+        }
+
+        private void abm_com1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (abm_com1.Checked)
+            {
+                abm_port.Text = "COM1";
+                abm_com2.CheckState= CheckState.Unchecked;
+                abm_com3.CheckState= CheckState.Unchecked;
+                abm_com4.CheckState= CheckState.Unchecked;
+                abm_com5.CheckState= CheckState.Unchecked;
+            }
+        }
+
+        private void abm_com2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (abm_com2.Checked)
+            {
+                abm_port.Text = "COM2";
+                abm_com1.CheckState = CheckState.Unchecked;
+                abm_com3.CheckState = CheckState.Unchecked;
+                abm_com4.CheckState = CheckState.Unchecked;
+                abm_com5.CheckState = CheckState.Unchecked;
+            }
+        }
+
+        private void abm_com3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (abm_com3.Checked)
+            {
+                abm_port.Text = "COM3";
+                abm_com1.CheckState = CheckState.Unchecked;
+                abm_com2.CheckState = CheckState.Unchecked;
+                abm_com4.CheckState = CheckState.Unchecked;
+                abm_com5.CheckState = CheckState.Unchecked;
+            }
+        }
+
+        private void abm_com4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (abm_com4.Checked)
+            {
+                abm_port.Text = "COM4";
+                abm_com1.CheckState = CheckState.Unchecked;
+                abm_com2.CheckState = CheckState.Unchecked;
+                abm_com3.CheckState = CheckState.Unchecked;
+                abm_com5.CheckState = CheckState.Unchecked;
+            }
+        }
+
+        private void abm_com5_CheckedChanged(object sender, EventArgs e)
+        {
+            if (abm_com5.Checked)
+            {
+                abm_port.Text = "COM5";
+                abm_com1.CheckState = CheckState.Unchecked;
+                abm_com2.CheckState = CheckState.Unchecked;
+                abm_com3.CheckState = CheckState.Unchecked;
+                abm_com4.CheckState = CheckState.Unchecked;
+            }
         }
     }
 }
