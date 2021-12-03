@@ -72,6 +72,7 @@ namespace DnaSynthMonitor
 
         private void Button2_Click(object sender, EventArgs e)
         {
+            /*
             int i;
             Byte[] dataBuf = new Byte[128];
             int synBufLen = this.BytesToRead;
@@ -84,7 +85,11 @@ namespace DnaSynthMonitor
                 this.textBox1.Text = ""; 
                 this.textBox1.AppendText(BitConverter.ToString(dataBuf));
 
-            }
+            }*/
+
+            //this.textBox1.AppendText(System.Text.Encoding.Default.GetString(data_in.ReadCom()));
+            //this.textBox1.AppendText(BitConverter.ToString(data_in.ReadCom()));
+            this.textBox1.AppendText(data_in.DataProcess().ToString());
 
 
         }
