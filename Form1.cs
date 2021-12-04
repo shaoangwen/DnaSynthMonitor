@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
+using System.Threading;
+
 
 namespace DnaSynthMonitor
 {
@@ -19,6 +21,7 @@ namespace DnaSynthMonitor
         //private SerialPort dataPort = new SerialPort("COM1");   //define the serial port number of absorptiometer
 
         AbmData data_in;
+        int DataChart_flag = 0;
         public Form1()
         {
             InitializeComponent();
@@ -88,10 +91,54 @@ namespace DnaSynthMonitor
             }*/
 
             //this.textBox1.AppendText(System.Text.Encoding.Default.GetString(data_in.ReadCom()));
-            //this.textBox1.AppendText(BitConverter.ToString(data_in.ReadCom()));
-            this.textBox1.AppendText(data_in.DataProcess().ToString());
+            ////this.textBox1.AppendText(data_in.DataProcess().ToString());
+            byte[] data_plot = data_in.DataProcess();
+            this.textBox1.AppendText(BitConverter.ToString(data_plot));
+            if (this.ch1_show.Checked & (data_plot.Length == 41))
+            {
+                int d_h = data_plot[3] & 0x0F;
+                int d_l = data_plot[4];
+                int d_y = d_h*0xFF + d_l;
+           
+                this.DataChart.Series[0].Points.AddY(d_y);
+                    
+            }
+            if (this.ch2_show.Checked && (data_plot.Length == 41))
+            {
+                int d_h = data_plot[5] & 0x0F;
+                int d_l = data_plot[6];
+                int d_y = d_h * 0xFF + d_l;
+
+                this.DataChart.Series[1].Points.AddY(d_y);
+
+            }
 
 
+        }
+
+        private void dataChart_plot_run()
+        {
+            while (DataChart_flag == 1)
+            {
+                byte[] data_plot = data_in.DataProcess();
+                if (data_plot.Length == 41)
+                {
+                    
+                    int d_h = data_plot[3] & 0x0F;
+                    int d_l = data_plot[4];
+                    int d_y = d_h * 0xFF + d_l;
+                    this.DataChart.Series[0].Points.  AddY(d_y);
+
+
+                    d_h = data_plot[5] & 0x0F;
+                    d_l = data_plot[6];
+                    d_y = d_h * (0xFF + d_l);
+                    this.DataChart.Series[1].Points.AddY(d_y);
+
+                }
+                Thread.Sleep(500);
+
+            }
         }
 
         private void synth_com1_CheckedChanged(object sender, EventArgs e)
@@ -211,6 +258,87 @@ namespace DnaSynthMonitor
                 abm_com3.CheckState = CheckState.Unchecked;
                 abm_com4.CheckState = CheckState.Unchecked;
             }
+        }
+
+        private void  ch1_show_CheckedChanged(object sender, EventArgs e)
+        {
+            
+            this.DataChart.Series[0].Enabled = ch1_show.Checked;
+        }
+
+        private void ch2_show_CheckedChanged(object sender, EventArgs e)
+        {
+            this.DataChart.Series[1].Enabled = ch2_show.Checked;
+        }
+
+        private void ch3_show_CheckedChanged(object sender, EventArgs e)
+        {
+            this.DataChart.Series[2].Enabled = ch3_show.Checked;
+        }
+
+        private void ch4_show_CheckedChanged(object sender, EventArgs e)
+        {
+            this.DataChart.Series[3].Enabled = ch5_show.Checked;
+        }
+
+        private void ch5_show_CheckedChanged(object sender, EventArgs e)
+        {
+            this.DataChart.Series[4].Enabled = ch13_show.Checked;
+        }
+
+        private void ch6_show_CheckedChanged(object sender, EventArgs e)
+        {
+            this.DataChart.Series[5].Enabled = ch12_show.Checked;
+        }
+
+        private void ch7_show_CheckedChanged(object sender, EventArgs e)
+        {
+            this.DataChart.Series[6].Enabled = ch11_show.Checked;
+        }
+
+        private void ch8_show_CheckedChanged(object sender, EventArgs e)
+        {
+            this.DataChart.Series[7].Enabled = ch10_show.Checked;
+        }
+
+        private void ch9_show_CheckedChanged(object sender, EventArgs e)
+        {
+            this.DataChart.Series[8].Enabled = ch9_show.Checked;
+        }
+
+        private void ch10_show_CheckedChanged(object sender, EventArgs e)
+        {
+            this.DataChart.Series[9].Enabled = ch10_show.Checked;
+        }
+
+        private void ch11_show_CheckedChanged(object sender, EventArgs e)
+        {
+            this.DataChart.Series[10].Enabled = ch11_show.Checked;
+        }
+
+        private void ch12_show_CheckedChanged(object sender, EventArgs e)
+        {
+            this.DataChart.Series[11].Enabled = ch12_show.Checked;
+        }
+
+        private void ch13_show_CheckedChanged(object sender, EventArgs e)
+        {
+            this.DataChart.Series[12].Enabled = ch13_show.Checked;
+        }
+
+        private void ch14_show_CheckedChanged(object sender, EventArgs e)
+        {
+            this.DataChart.Series[13].Enabled = ch14_show.Checked;
+        }
+
+        private void ch15_show_CheckedChanged(object sender, EventArgs e)
+        {
+            this.DataChart.Series[14].Enabled = ch15_show.Checked;
+        }
+
+        private void ch16_show_CheckedChanged(object sender, EventArgs e)
+        {
+            this.DataChart.Series[15].Enabled = ch16_show.Checked;
         }
     }
 }

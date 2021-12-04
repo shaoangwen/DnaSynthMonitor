@@ -70,15 +70,16 @@ namespace DnaSynthMonitor
             data_byte = System.Text.Encoding.Default.GetBytes(frame_tail);
             return data_byte;
         }
-        public int DataProcess()
+        public byte[] DataProcess()
         {
             byte[] data_byte = ReadCom();
             if (data_byte.Length == 41)
             {
-                return data_byte.Length;
+                return data_byte;
             }
-            return 0;
-        } 
+            return new byte[1];
+        }
+        
 /*
         public static string byteToHexStr(byte[] bytes)
         {
