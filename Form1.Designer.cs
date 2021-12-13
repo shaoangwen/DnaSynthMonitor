@@ -78,6 +78,7 @@
             this.synth_com3 = new System.Windows.Forms.ToolStripMenuItem();
             this.synth_com4 = new System.Windows.Forms.ToolStripMenuItem();
             this.synth_com5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.synth_com6 = new System.Windows.Forms.ToolStripMenuItem();
             this.吸光度计端口ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.abm_com1 = new System.Windows.Forms.ToolStripMenuItem();
             this.abm_com2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -96,6 +97,7 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.abm_port = new System.Windows.Forms.ToolStripStatusLabel();
             this.curr_stat = new System.Windows.Forms.ToolStripStatusLabel();
+            this.button3 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StatChart)).BeginInit();
@@ -299,7 +301,8 @@
             this.synth_com2,
             this.synth_com3,
             this.synth_com4,
-            this.synth_com5});
+            this.synth_com5,
+            this.synth_com6});
             this.合成仪端口ToolStripMenuItem.Name = "合成仪端口ToolStripMenuItem";
             this.合成仪端口ToolStripMenuItem.Size = new System.Drawing.Size(98, 24);
             this.合成仪端口ToolStripMenuItem.Text = "合成仪端口";
@@ -343,6 +346,14 @@
             this.synth_com5.Size = new System.Drawing.Size(138, 26);
             this.synth_com5.Text = "COM5";
             this.synth_com5.CheckedChanged += new System.EventHandler(this.synth_com5_CheckedChanged);
+            // 
+            // synth_com6
+            // 
+            this.synth_com6.CheckOnClick = true;
+            this.synth_com6.Name = "synth_com6";
+            this.synth_com6.Size = new System.Drawing.Size(138, 26);
+            this.synth_com6.Text = "COM6";
+            this.synth_com6.CheckedChanged += new System.EventHandler(this.synth_com6_CheckedChanged);
             // 
             // 吸光度计端口ToolStripMenuItem
             // 
@@ -436,9 +447,6 @@
             // 
             // DataChart
             // 
-            chartArea1.AxisX.ScaleView.Size = 100D;
-            chartArea1.AxisX.ScaleView.SizeType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
-            chartArea1.AxisX.ScaleView.SmallScrollSizeType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
             chartArea1.Name = "ChartArea1";
             this.DataChart.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
@@ -449,66 +457,97 @@
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series1.Legend = "Legend1";
             series1.Name = "Ch1";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.Enabled = false;
             series2.Legend = "Legend1";
             series2.Name = "Ch2";
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series3.ChartArea = "ChartArea1";
             series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series3.Enabled = false;
             series3.Legend = "Legend1";
             series3.Name = "Ch3";
+            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series4.ChartArea = "ChartArea1";
             series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series4.Enabled = false;
             series4.Legend = "Legend1";
             series4.Name = "Ch4";
+            series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series5.ChartArea = "ChartArea1";
             series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series5.Enabled = false;
             series5.Legend = "Legend1";
             series5.Name = "Ch5";
+            series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series6.ChartArea = "ChartArea1";
             series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series6.Enabled = false;
             series6.Legend = "Legend1";
             series6.Name = "Ch6";
+            series6.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series7.ChartArea = "ChartArea1";
             series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series7.Enabled = false;
             series7.Legend = "Legend1";
             series7.Name = "Ch7";
+            series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series8.ChartArea = "ChartArea1";
             series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series8.Enabled = false;
             series8.Legend = "Legend1";
             series8.Name = "Ch8";
+            series8.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series9.ChartArea = "ChartArea1";
             series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series9.Enabled = false;
             series9.Legend = "Legend1";
             series9.Name = "Ch9";
+            series9.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series10.ChartArea = "ChartArea1";
             series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series10.Enabled = false;
             series10.Legend = "Legend1";
             series10.Name = "Ch10";
+            series10.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series11.ChartArea = "ChartArea1";
             series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series11.Enabled = false;
             series11.Legend = "Legend1";
             series11.Name = "Ch11";
+            series11.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series12.ChartArea = "ChartArea1";
             series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series12.Enabled = false;
             series12.Legend = "Legend1";
             series12.Name = "Ch12";
+            series12.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series13.ChartArea = "ChartArea1";
             series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series13.Enabled = false;
             series13.Legend = "Legend1";
             series13.Name = "Ch13";
+            series13.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series14.ChartArea = "ChartArea1";
             series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series14.Enabled = false;
             series14.Legend = "Legend1";
             series14.Name = "Ch14";
+            series14.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series15.ChartArea = "ChartArea1";
             series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series15.Enabled = false;
             series15.Legend = "Legend1";
             series15.Name = "Ch15";
+            series15.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series16.ChartArea = "ChartArea1";
             series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series16.Enabled = false;
             series16.Legend = "Legend1";
             series16.Name = "Ch16";
+            series16.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             this.DataChart.Series.Add(series1);
             this.DataChart.Series.Add(series2);
             this.DataChart.Series.Add(series3);
@@ -598,6 +637,16 @@
             this.curr_stat.Size = new System.Drawing.Size(129, 52);
             this.curr_stat.Text = "ready";
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(1114, 233);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 8;
+            this.button3.Text = "停止";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -605,6 +654,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1710, 879);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.StatChart);
             this.Controls.Add(this.DataChart);
@@ -676,6 +726,8 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripStatusLabel abm_port;
         private System.Windows.Forms.ToolStripStatusLabel curr_stat;
+        private System.Windows.Forms.ToolStripMenuItem synth_com6;
+        private System.Windows.Forms.Button button3;
     }
 }
 

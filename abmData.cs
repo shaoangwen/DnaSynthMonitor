@@ -79,6 +79,36 @@ namespace DnaSynthMonitor
             }
             return new byte[1];
         }
+
+
+
+        public int CycMonit() 
+        {
+            byte[] data_byte = new byte[38];
+            if (dataPort.IsOpen)
+            {
+                if (dataPort.BytesToRead != 0)
+                {
+                    data_byte[0] = (byte)dataPort.ReadByte();
+                    while (data_byte[0] != (byte)0x53)
+                    {
+                        data_byte[0] = (byte)dataPort.ReadByte();
+                    }
+                    dataPort.Read(data_byte, 1, 37);
+                    if ((data_byte[34] == (byte)0x34) && (data_byte[35] == (byte)0x37))
+                    {
+                        return 1;
+                        
+                    }
+                    else if((data_byte[34] == (byte)0x32) && (data_byte[35] == (byte)0x31))
+                    {
+                        return 2;
+                    }
+                }
+                return 0;
+            }
+            return -1;
+        }
         
 /*
         public static string byteToHexStr(byte[] bytes)
